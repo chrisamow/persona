@@ -11,7 +11,7 @@ class HelloWorld(Resource):
 
 #REST part
 api.add_resource(HelloWorld, '/api')
-api.add_resource(Person, '/api/<string:person_id>')
+api.add_resource(Person, '/api/person/<person_id>')
 
 
 #starting static front end part

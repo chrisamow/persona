@@ -12,3 +12,9 @@ class Person(Resource):
         return {person_id: persons[person_id]}
 
 
+class PersonList(Resource):
+    def get(self):
+        return persons
+
+#    def post
+
