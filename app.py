@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
-from resources import PersonResource
+from resources import PersonResource, PersonListResource
 
 app = Flask(__name__)
 api = Api(app)
@@ -11,6 +11,7 @@ class HelloWorld(Resource):
 
 #REST part
 api.add_resource(HelloWorld, '/api')
+api.add_resource(PersonListResource, '/api/persons')
 api.add_resource(PersonResource, '/api/person/<person_id>')
 
 
