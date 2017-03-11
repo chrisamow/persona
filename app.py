@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
-from person import Person
+from resources import PersonResource
 
 app = Flask(__name__)
 api = Api(app)
@@ -11,7 +11,7 @@ class HelloWorld(Resource):
 
 #REST part
 api.add_resource(HelloWorld, '/api')
-api.add_resource(Person, '/api/person/<person_id>')
+api.add_resource(PersonResource, '/api/person/<person_id>')
 
 
 #starting static front end part

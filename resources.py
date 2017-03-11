@@ -3,7 +3,7 @@ from flask_restful import Resource
 
 persons = {}
 
-class Person(Resource):
+class PersonResource(Resource):
     def get(self, person_id):
         return {person_id: persons[person_id]}
 
@@ -12,7 +12,7 @@ class Person(Resource):
         return {person_id: persons[person_id]}
 
 
-class PersonList(Resource):
+class PersonListResource(Resource):
     def get(self):
         return persons
 
