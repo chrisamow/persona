@@ -19,7 +19,7 @@ person_parser = reqparse.RequestParser()
 person_parser.add_argument('lastname', type=str)
 person_parser.add_argument('firstname', type=str)
 person_parser.add_argument('dateofbirth', type=lambda x: datetime.strptime(x,'%Y-%m-%dT%H:%M:%S.%fZ'))
-#expecting javascript iso date format, e.g. new Date("2015-03-25").toISOString()-->'2015-03-25T00:00:00.000Z'
+#expecting  RFC 3339 date format, e.g. javascript: new Date("2015-03-25").toISOString()-->'2015-03-25T00:00:00.000Z'
 
 
 
