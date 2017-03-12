@@ -26,6 +26,7 @@ person_parser.add_argument('dateofbirth', type=lambda x: datetime.strptime(x,'%Y
 class PersonResource(Resource):
     @marshal_with(person_fields)
     def get(self, person_id):
+        import pudb; pu.db
         person = session.query(Person).filter(Person.id == person_id).one()
         if not person:
             abort(404, message="Person {} doesn't exist".format(person_id))
@@ -43,7 +44,6 @@ class PersonResource(Resource):
 
     @marshal_with(person_fields)
     def put(self, person_id):
-        import pudb; pu.db
         parsed_args = person_parser.parse_args()
         person = session.query(Person).filter(Person.id == person_id).first()
         person.lastname = parsed_args['lastname']
@@ -58,12 +58,12 @@ class PersonResource(Resource):
 class PersonListResource(Resource):
     @marshal_with(person_fields)
     def get(self):
+        import pudb; pu.db
         persons = session.query(Person).all()
         return persons
 
     @marshal_with(person_fields)
     def post(self):
-        import pudb; pu.db
         parsed_args = person_parser.parse_args()
         person = Person(    lastname=parsed_args['lastname'],
                             firstname=parsed_args['firstname'],
