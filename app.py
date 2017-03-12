@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from resources import PersonResource, PersonListResource
-
 app = Flask(__name__)
 api = Api(app)
 

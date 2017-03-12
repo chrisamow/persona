@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from sys import argv
-from sqlalchemy import (Column, Integer, Date, String)
+from sqlalchemy import (Column, Integer, DateTime, String)
 from sqlalchemy.ext.declarative import declarative_base                         
 from sqlalchemy import Sequence
 #import datetime
@@ -18,7 +18,7 @@ class Person(Base):
     id = Column(Integer, Sequence('person_id_seq'), primary_key=True)
     lastname = Column(String(namemax))
     firstname = Column(String(namemax))
-    dateofbirth = Column(Date)
+    dateofbirth = Column(DateTime)
     zipcode = Column(Integer)
     pass
 

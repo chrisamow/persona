@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 #from flask import request
 from flask_restful import Resource, fields, reqparse, marshal_with, abort
 from db import session
@@ -11,7 +11,7 @@ person_fields = {
     'id': fields.Integer,
     'lastname': fields.String,
     'firstname': fields.String,
-    'dateofbirth': fields.Date
+    'dateofbirth': fields.DateTime  #dt_format='rfc822'
 }
 
 #incoming
@@ -43,7 +43,7 @@ class PersonResource(Resource):
 
     @marshal_with(person_fields)
     def put(self, person_id):
-        #import pudb; pu.db
+        import pudb; pu.db
         parsed_args = person_parser.parse_args()
         person = session.query(Person).filter(Person.id == person_id).first()
         person.lastname = parsed_args['lastname']
@@ -63,11 +63,13 @@ class PersonListResource(Resource):
 
     @marshal_with(person_fields)
     def post(self):
+        import pudb; pu.db
         parsed_args = person_parser.parse_args()
         person = Person(    lastname=parsed_args['lastname'],
                             firstname=parsed_args['firstname'],
                             dateofbirth=parsed_args['dateofbirth'])
         session.add(person)
         session.commit()
+        return person, 201
 
 
