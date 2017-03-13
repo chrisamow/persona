@@ -1,4 +1,4 @@
-from requests import put, get, post
+from requests import put, get, post, delete
 import json
 #from datetime import datetime
 from dateutil import parser
@@ -18,6 +18,10 @@ def test_rest():
     assert 201 == reply1.status_code
     print('returned:{}   content:{}'.format(reply1, reply1.content))
     #print(reply1.json())
+    try:
+        js1 = reply1.json()
+    except ValueError as ve:
+        assert not ve
 
     #list of persons
     reply2 = get('http://localhost:5000/api/persons')
@@ -29,7 +33,7 @@ def test_rest():
         assert not ve
 
     #get specific person
-    reply3 = get('http://localhost:5000/api/person/1')
+    reply3 = get('http://localhost:5000/api/person/{}'.format(js1['id']))
     assert reply3.ok
     try:
         js3 = reply3.json()
@@ -51,6 +55,20 @@ def test_rest():
 
 
     #delete person
+    #going to assume noone was added since we got list in js2
+    lastguy = max(js2, key=lambda x: x['id'])
+    reply5 = delete('http://localhost:5000/api/person/{}'.format(lastguy['id']))
+    assert reply5.ok
+    assert 204 == reply5.status_code
+    #check list of persons
+    reply6 = get('http://localhost:5000/api/persons')
+    assert reply6.ok
+    assert 200 == reply6.status_code
+    try:
+        js6 = reply6.json()
+    except ValueError as ve:
+        assert not ve
+    assert len(js6) == (len(js2) - 1)
 
 
 
