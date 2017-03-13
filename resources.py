@@ -5,13 +5,15 @@ from db import session
 from models import Person
 
 
+#datetime works across the stack better so we will ignore the time component
 
 #outgoing
 person_fields = {
     'id': fields.Integer,
     'lastname': fields.String,
     'firstname': fields.String,
-    'dateofbirth': fields.DateTime  #dt_format='rfc822'
+    'dateofbirth': fields.DateTime(dt_format='iso8601')     #'rfc822')
+        #will not have the Z at the end for UTC, but javascript will still accept this in a new Date() 
 }
 
 #incoming

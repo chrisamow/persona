@@ -9,7 +9,7 @@ def test_rest():
     print('data={}'.format(data))
     reply = post('http://localhost:5000/api/persons', headers={'Content-Type': 'application/json'}, data=data)
     assert 201 == reply.status_code
-    #print(reply)
+    print('returned:{}   content:{}'.format(reply, reply.content))
     #print(reply.json())
 
 
