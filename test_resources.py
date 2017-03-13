@@ -2,6 +2,7 @@ from requests import put, get, post
 import json
 #from datetime import datetime
 from dateutil import parser
+from copy import deepcopy
 
 
 
@@ -40,6 +41,13 @@ def test_rest():
 
 
     #change person
+    #note how awkward it is to simulate client js in python since python datetime.isoformat does this: '2015-03-25T00:00:00+00:00'
+    dict4 = deepcopy(dict1)
+    #del dict4['id']    #would have preferred modding js3
+    dict4['firstname'] = 'changedname'
+    reply4 = put('http://localhost:5000/api/person/1', headers={'Content-Type': 'application/json'}, data=json.dumps(dict4))
+    assert reply4.ok
+    assert 201 == reply4.status_code
 
 
     #delete person

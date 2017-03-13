@@ -46,7 +46,6 @@ class PersonResource(Resource):
 
     @marshal_with(person_fields)
     def put(self, person_id):
-        import pudb; pu.db
         parsed_args = person_parser.parse_args()
         person = session.query(Person).filter(Person.id == person_id).first()
         person.lastname = parsed_args['lastname']
