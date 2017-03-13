@@ -29,7 +29,6 @@ person_parser.add_argument('dateofbirth', type=lambda x: datetime.strptime(x,'%Y
 class PersonResource(Resource):
     @marshal_with(person_fields)
     def get(self, person_id):
-        import pudb; pu.db
         person = session.query(Person).filter(Person.id == person_id).one()
         if not person:
             abort(404, message="Person {} doesn't exist".format(person_id))
