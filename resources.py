@@ -59,7 +59,9 @@ class PersonResource(Resource):
 
 class PersonListResource(Resource):
     @marshal_with(person_fields)
-    def get(self):
+    def get(self, startingid=None):
+        """if startingid is set we will return a paginated subset"""
+        #import pudb; pu.db
         persons = session.query(Person).all()
         return persons
 

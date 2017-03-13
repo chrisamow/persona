@@ -4,13 +4,9 @@ from resources import PersonResource, PersonListResource
 app = Flask(__name__)
 api = Api(app)
 
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
 
 #REST part
-api.add_resource(HelloWorld, '/api')
-api.add_resource(PersonListResource, '/api/persons')
+api.add_resource(PersonListResource, '/api/persons', '/api/persons/<startingid>')
 api.add_resource(PersonResource, '/api/person/<person_id>')
 
 
