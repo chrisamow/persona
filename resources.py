@@ -47,6 +47,7 @@ class PersonResource(Resource):
 
     @marshal_with(person_fields)
     def put(self, person_id):
+        import pudb; pu.db
         parsed_args = person_parser.parse_args()
         person = session.query(Person).filter(Person.id == person_id).first()
         person.lastname = parsed_args['lastname']
@@ -61,7 +62,6 @@ class PersonResource(Resource):
 class PersonListResource(Resource):
     @marshal_with(person_fields)
     def get(self):
-        import pudb; pu.db
         persons = session.query(Person).all()
         return persons
 
