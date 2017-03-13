@@ -4,15 +4,61 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Some title</title>
-  <meta name="description" content="HTML5 page">
-  <meta name="author" content="stuff">
+  <title>Persona</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="static/styles.css?v=1.0">
+
 </head>
 
 <body>
-  <script src="js/scripts.js"></script>
+  <div id="app">
+    <div class="row">
+      <p>
+        When the 5th digit is typed the lookupzip function is called
+      </p>
+      <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="zip here" v-model="zipcode">
+        <span class="city-span">{{city}}</span>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@2.2.3"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        zipcode: '',
+        city: ''
+      },
+      watch: {
+        zipcode: function() {
+          this.city = ''
+          if(this.zipcode.length == 5) {
+            this.lookupzip()
+          }
+        }
+      },
+      methods: {
+        lookupzip: _.debounce(function() {
+          var a = this; //app
+          a.city = "Searching..."
+          axios.get('http://ziptasticapi.com/' + a.zipcode)
+            .then(function (response) {
+              if ("city" in response.data) {
+                a.city = response.data.city + ', ' + response.data.state
+              } else {
+                a.city = response.data.error  //typically this says "Not a valid Zip Code!"
+              }
+            })
+            .catch(function (error) {
+              a.city = "Invalid Zipcode"
+            })
+        }, 500)
+      }
+    })
+  </script>
 </body>
 </html>
 
