@@ -6,6 +6,7 @@ from models import Person
 
 
 #datetime works across the stack better so we will ignore the time component
+#note that RFC3339 is a profile of ISO8601
 
 #outgoing
 person_fields = {
@@ -21,7 +22,7 @@ person_parser = reqparse.RequestParser()
 person_parser.add_argument('lastname', type=str)
 person_parser.add_argument('firstname', type=str)
 person_parser.add_argument('dateofbirth', type=lambda x: datetime.strptime(x,'%Y-%m-%dT%H:%M:%S.%fZ'))
-#expecting  RFC 3339 date format, e.g. javascript: new Date("2015-03-25").toISOString()-->'2015-03-25T00:00:00.000Z'
+#expecting  RFC3339 date format, e.g. javascript: new Date("2015-03-25").toISOString()-->'2015-03-25T00:00:00.000Z'
 
 
 
