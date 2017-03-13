@@ -71,7 +71,7 @@ class PersonListResource(Resource):
     @marshal_with(person_fields)
     @use_kwargs(args)
     def get(self, startid, letter, search):
-        import pudb; pu.db  #pyflakes gets confused (webargs related?) throws an error, ignore
+        #import pudb; pu.db  #pyflakes gets confused (webargs related?) throws an error, ignore
         persons = session.query(Person).all()
         return persons
 
