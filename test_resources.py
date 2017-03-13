@@ -75,6 +75,18 @@ def test_rest():
     #list of persons
 
 
+def test_params():
+    pass
+"""
+>>> payload = {'key1': 'value1', 'key2': 'value2'}
+>>> r = requests.get('http://httpbin.org/get', params=payload)
+
+equivalent of
+ 1881  curl "http://localhost:5000/api/persons?startid=30&letter=a&search=haha"
+ 1882  curl "http://localhost:5000/api/persons?startid=30&letter=a"
+"""
+
+
 
 test_rest()
 

@@ -3,6 +3,9 @@ from datetime import datetime
 from flask_restful import Resource, fields, reqparse, marshal_with, abort
 from db import session
 from models import Person
+import webargs
+from webargs.flaskparser import use_kwargs
+from string import ascii_lowercase
 
 
 #datetime works across the stack better so we will ignore the time component
@@ -58,10 +61,17 @@ class PersonResource(Resource):
 
 
 class PersonListResource(Resource):
+    args = {
+        'startid': webargs.fields.Int(required=False, validate=webargs.validate.Range(min=1)),
+        'letter': webargs.fields.Str(required=False, 
+            validate=webargs.validate.OneOf(list(ascii_lowercase))),
+        'search': webargs.fields.Str(required=False)
+    }
+
     @marshal_with(person_fields)
-    def get(self, startingid=None):
-        """if startingid is set we will return a paginated subset"""
-        #import pudb; pu.db
+    @use_kwargs(args)
+    def get(self, startid, letter, search):
+        import pudb; pu.db  #pyflakes gets confused (webargs related?) throws an error, ignore
         persons = session.query(Person).all()
         return persons
 

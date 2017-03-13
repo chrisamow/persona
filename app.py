@@ -1,14 +1,21 @@
 from flask import Flask
-from flask_restful import Resource, Api
+from flask_restful import Api, abort
 from resources import PersonResource, PersonListResource
+from webargs.flaskparser import parser
+
+
 app = Flask(__name__)
 api = Api(app)
 
 
 #REST part
-api.add_resource(PersonListResource, '/api/persons', '/api/persons/<startingid>')
+api.add_resource(PersonListResource, '/api/persons')
 api.add_resource(PersonResource, '/api/person/<person_id>')
 
+# webargs: This error handler is necessary for usage with Flask-RESTful.
+@parser.error_handler
+def handle_request_parsing_error(err):
+    abort(422, errors=err.messages)
 
 #starting static front end part
 @app.route('/')
