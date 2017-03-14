@@ -7,6 +7,9 @@
 		conda env create --name per -f environment.yml
 	pyflakes and pytest used throughout
 
+./models.py createdb
+./models.py sampledata gendata/clean500.csv
+
 
 performance notes:
 http://sqlite.org/speed.html
