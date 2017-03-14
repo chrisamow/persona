@@ -1,8 +1,10 @@
-input{
-  float: left;
-  clear: left;
-}
-span{
-  float: left;
-  clear: left;
-}
+.form-inline a {                                                                
+    margin-left: 5px;                                                           
+}                                                                               
+.form-inline a#add {                                                            
+    margin-left: 20px;                                                          
+}                                                                               
+#searchgroup {                                                                  
+    margin-left: 20px;                                                          
+}                                                                               
+

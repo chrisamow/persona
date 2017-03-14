@@ -3,51 +3,28 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
   <title>Persona</title>
-
-  <!-- <link rel="stylesheet" href="static/styles.css?v=1.0"> -->
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-.form-inline a {
-    margin-left: 5px;
-}
-.form-inline a#add {
-    margin-left: 20px;
-}
-#searchgroup {
-    margin-left: 20px;
-}
-</style>
+  <link rel="stylesheet" href="static/styles.css?v=1.0">
 </head>
 
 <body>
   <div id="app" class="container">
-    <span class="app-status">{{appstatus}}</span>
+    <div class="col-xs-12" style="height:20px;"></div>
+    <span v-if="personadebug" class="app-status">{{appstatus}}</span>
     <form class="form-inline">
-
       <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" v-model="selected" v-on:click="jumpto">
         <option selected>Jump...</option>
         <option v-for="letter in letters" v-bind:value="letter">
           {{ letter }}
         </option>
       </select>
-
       <div id="searchgroup" class="input-group mb-2 mr-sm-2 mb-sm-0">
         <input type="text"  class="form-control" placeholder="Search for..." v-model="searchterm"/>
         <a class="btn btn-secondary" href="#">
           <i class="fa fa-search" aria-hidden="true" v-on:click="search"></i></a>
       </div>
-
-      <!--
-        <div class="form-check mb-2 mr-sm-2 mb-sm-0">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox"> Remember me
-          </label>
-        </div>
-      -->
       <a id="add" class="btn btn-secondary" href="#">
         <i class="fa fa-plus-square" aria-hidden="true"></i></a>
       <a class="btn btn-secondary" href="#">
@@ -60,26 +37,27 @@
         <i class="fa fa-info" aria-hidden="true"></i></a>
     </form>
 
-      <div class="col-xs-12" style="height:50px;"></div>
-      <table id="mainlist" class="table table-striped table-hover">
-        <thead class="thead-inverse">
-          <tr v-if="persons.length>0">
-            <th>Last name</th>
-            <th>First name</th>
-            <th>Date of birth</th>
-            <th>Zipcode</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="person in persons" v-bind:id="person.id" v-on:dblclick="editrow($event)">
-            <td>{{ person.lastname }}</td>
-            <td>{{ person.firstname }}</td>
-            <td>{{ person.dateofbirth }}</td>
-            <td>{{ person.zipcode }}</td>
-          </tr>
-        <tbody>
-      </table>
+    <div class="col-xs-12" style="height:20px;"></div>
+    <table id="mainlist" class="table table-striped table-hover">
+      <thead class="thead-inverse">
+        <tr v-if="persons.length>0">
+          <th>Last name</th>
+          <th>First name</th>
+          <th>Date of birth</th>
+          <th>Zipcode</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="person in persons" v-bind:id="person.id" v-on:dblclick="editrow($event)">
+          <td>{{ person.lastname }}</td>
+          <td>{{ person.firstname }}</td>
+          <td>{{ person.dateofbirth }}</td>
+          <td>{{ person.zipcode }}</td>
+        </tr>
+      <tbody>
+    </table>
   </div>
+
   <script src="https://unpkg.com/vue@2.2.3"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
@@ -87,6 +65,7 @@
     var app = new Vue({
       el: '#app',
       data: {
+        personadebug: false,
         api: '',
         zipcode: '',
         city: '',
