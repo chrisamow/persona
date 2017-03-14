@@ -12,7 +12,7 @@
 <body>
   <div id="app" class="container">
     <div class="col-xs-12" style="height:20px;"></div>
-    <span v-if="personadebug" class="app-status">{{appstatus}}</span>
+    <span v-cloak v-if="personadebug" class="app-status">{{appstatus}}</span>
     <form class="form-inline">
       <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" v-model="selected" v-on:click="jumpto">
         <option selected>Jump...</option>
