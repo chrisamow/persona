@@ -51,7 +51,7 @@
         <tr v-for="person in persons" v-bind:id="person.id" v-on:dblclick="editrow($event)">
           <td>{{ person.lastname }}</td>
           <td>{{ person.firstname }}</td>
-          <td>{{ person.dateofbirth }}</td>
+          <td>{{ person.dateofbirth.substring(0,10) }}</td>
           <td>{{ person.zipcode }}</td>
         </tr>
       <tbody>
