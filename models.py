@@ -19,7 +19,7 @@ class Person(Base):
     lastname = Column(String(namemax))
     firstname = Column(String(namemax))
     dateofbirth = Column(DateTime)
-    zipcode = Column(String(namemax))
+    zipcode = Column(String(namemax))   #not using int, dont forget about 9 digit zips
     def setDob(self, s):
         """ease formatting pain if you have a simple YYYY-MM-DD date"""
         self.dateofbirth = datetime.datetime.strptime(s, '%Y-%m-%d')
