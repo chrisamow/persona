@@ -21,7 +21,7 @@
         </option>
       </select>
       <div id="searchgroup" class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <input type="text"  class="form-control" placeholder="Search for..." v-model="searchterm"/>
+        <input type="text"  class="form-control" placeholder="Search for..." v-model="searchterm" @keyup.enter="search"/>
         <a class="btn btn-secondary" href="#">
           <i class="fa fa-search" aria-hidden="true" v-on:click="search"></i></a>
       </div>
@@ -33,7 +33,7 @@
         <i class="fa fa-window-close" aria-hidden="true"></i></a>
       <a class="btn btn-secondary" href="#">
         <i class="fa fa-cog" aria-hidden="true"></i></a>
-      <a class="btn btn-secondary" href="#">
+      <a class="btn btn-secondary" href="#" v-on:click="info">
         <i class="fa fa-info" aria-hidden="true"></i></a>
     </form>
 
@@ -96,12 +96,15 @@
           window.alert("jumping to " + this.selected)
         },
         search: function() {
-          //window.alert("searching for: " + this.searchterm)
-          this.fetchpersons()
+          window.alert("searching for: " + this.searchterm)
         },
         editrow: function(e) {
           window.alert("edit row")
           //e.currentTarget.contentEditable = true  //not going to work
+        },
+        info: function(e) {
+          //temporarily using this as manual refresh
+          this.fetchpersons()
         },
         handleScroll: function () {
           this.scrollPos = document.body.scrollHeight - window.innerHeight - document.body.scrollTop;   
