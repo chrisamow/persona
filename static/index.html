@@ -44,7 +44,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="person in persons">
+          <tr v-for="person in persons" v-bind:id="person.id" v-on:dblclick="editrow($event)">
             <td>{{ person.lastname }}</td>
             <td>{{ person.firstname }}</td>
             <td>{{ person.dateofbirth }}</td>
@@ -94,6 +94,10 @@
           //window.alert("searching for: " + this.searchterm)
           this.fetchpersons()
         },
+        editrow: function(e) {
+          window.alert("edit row")
+          //e.currentTarget.contentEditable = true  //not going to work
+        },
         handleScroll: function () {
           this.scrollPos = document.body.scrollHeight - window.innerHeight - document.body.scrollTop;   
           if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop == 0) {
@@ -110,11 +114,7 @@
               a.persons = response.data
               if (a.persons.length > 0) {
               }
-              //if ("city" in response.data) {
-              //  a.city = response.data.city + ', ' + response.data.state
-              //} else {
-              //  a.city = response.data.error  //typically this says "Not a valid Zip Code!"
-              //}
+              //response.data.error  //error code here tbd
             })
             .catch(function (error) {
               a.searchterm = "Invalid Data"
