@@ -16,8 +16,9 @@ person_fields = {
     'id': fields.Integer,
     'lastname': fields.String,
     'firstname': fields.String,
-    'dateofbirth': fields.DateTime(dt_format='iso8601')     #'rfc822')
+    'dateofbirth': fields.DateTime(dt_format='iso8601'),     #'rfc822')
         #will not have the Z at the end for UTC, but javascript will still accept this in a new Date() 
+    'zipcode': fields.String
 }
 
 #incoming
@@ -25,6 +26,7 @@ person_parser = reqparse.RequestParser()
 person_parser.add_argument('lastname', type=str)
 person_parser.add_argument('firstname', type=str)
 person_parser.add_argument('dateofbirth', type=lambda x: datetime.strptime(x,'%Y-%m-%dT%H:%M:%S.%fZ'))
+person_parser.add_argument('zipcode', type=str)
 #expecting  RFC3339 date format, e.g. javascript: new Date("2015-03-25").toISOString()-->'2015-03-25T00:00:00.000Z'
 
 

@@ -52,8 +52,10 @@
         </thead>
         <tbody>
           <tr v-for="person in persons">
-            <td>{{ person.firstname }}</td>
             <td>{{ person.lastname }}</td>
+            <td>{{ person.firstname }}</td>
+            <td>{{ person.dateofbirth }}</td>
+            <td>{{ person.zipcode }}</td>
           </tr>
         <tbody>
       </table>
@@ -79,6 +81,7 @@
           this.city = ''
           if(this.zipcode.length == 5) {
             this.lookupzip()
+            this.fetchpersons()
           }
         }
       },
@@ -108,8 +111,9 @@
           a.searchterm = "Searching..." + api
           axios.get(api + 'persons')
             .then(function (response) {
-              persons = response.data
-              if (persons.length > 0) {
+              console.log(response)
+              a.persons = response.data
+              if (a.persons.length > 0) {
               }
               //if ("city" in response.data) {
               //  a.city = response.data.city + ', ' + response.data.state
@@ -120,7 +124,7 @@
             .catch(function (error) {
               a.searchterm = "Invalid Data"
             })
-        },
+        }, 
         lookupzip: _.debounce(function() {
           var a = this; //app
           a.city = "Searching..."
