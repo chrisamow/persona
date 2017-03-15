@@ -13,7 +13,7 @@
   <div id="app" class="container">
     <div id="modalmount">
       <modal :shown="modalShown" @closed="modalShown = false">
-        <p>Hello! {{ counter }} seconds since the conter has started.</p>
+        <p>Hello! {{ modalCounter }} seconds since the conter has started.</p>
         <p><button @click="modalShown = false">Close the modal</button></p>
       </modal>
 
@@ -31,15 +31,15 @@
           <a class="btn btn-secondary" href="#">
             <i class="fa fa-search" aria-hidden="true" v-on:click="search"></i></a>
         </div>
-        <a id="add" class="btn btn-secondary" href="#">
+        <a id="add" class="btn btn-secondary">
           <i class="fa fa-plus-square" aria-hidden="true" @click="modalChild"></i></a>
-        <a class="btn btn-secondary" href="#">
+        <a class="btn btn-secondary">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-        <a class="btn btn-secondary" href="#">
+        <a class="btn btn-secondary">
           <i class="fa fa-window-close" aria-hidden="true"></i></a>
-        <a class="btn btn-secondary" href="#">
+        <a class="btn btn-secondary">
           <i class="fa fa-cog" aria-hidden="true"></i></a>
-        <a class="btn btn-secondary" href="#" v-on:click="info">
+        <a class="btn btn-secondary" v-on:click="info">
           <i class="fa fa-info" aria-hidden="true"></i></a>
       </form>
 
@@ -93,7 +93,7 @@
       data: function() {
         return {
           modalShown: false,
-          counter: 0,
+          modalCounter: 0,
           personadebug: false,
           api: '',
           zipcode: '',
@@ -120,7 +120,7 @@
       },
       mounted: function() {
             setInterval(function() {
-            this.counter += 1;
+            this.modalCounter += 1;
         }.bind(this), 1000);
         //document.getElementById('modalmount').appendChild(this.$el)
       },
@@ -133,7 +133,7 @@
           console.log('modal closed')
         },
         modalChild: function() {
-          this.counter = 0;
+          this.modalCounter = 0;
           //document.getElementById('modalmount').appendChild(document.getElementById('modalid'))
           this.modalShown = true
         },
