@@ -79,6 +79,9 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
   <script>
+    function deepclone(o) { //handy way to clone, naturally passes the JSON.stringify cmp
+      return (JSON.parse(JSON.stringify(o)))
+    }
     var modal = {
       props: {
         shown: { type: Boolean, required: true },
@@ -106,7 +109,7 @@
           modalCounter: 0,
           modalCommit: false,
           modalPerson: {lastname:'',firstname:'',dateofbirth:'',zipcode:''},
-          modalCmp: '',
+          modalOrigPerson: {lastname:'',firstname:'',dateofbirth:'',zipcode:''},
           personadebug: false,
           api: '',
           zipcode: '',
@@ -120,7 +123,7 @@
       },
       computed: {
         isModalPersonChanged: function() {
-          return ! (this.modalCmp === JSON.stringify(this.modalPerson))
+          return ! (JSON.stringify(this.modalOrigPerson) === JSON.stringify(this.modalPerson))
         }
       },
       watch: {
@@ -149,7 +152,15 @@
         modalSave: function() { //only Save button gets here, e.g. click on shade will not
           this.modalCommit = true
           this.modalShown = false
-          console.log('modal closed')
+          //TODO: validate
+
+          //TODO: make REST call to persist
+
+          //vue model must get the changes
+          this.modalOrigPerson.lastname = this.modalPerson.lastname
+          this.modalOrigPerson.firstname = this.modalPerson.firstname
+          this.modalOrigPerson.dateofbirth = this.modalPerson.dateofbirth
+          this.modalOrigPerson.zipcode = this.modalPerson.zipcode
         },
         modalChild: function() {
           this.modalCounter = 0;
@@ -166,8 +177,8 @@
         editrow: function(person) {
           //window.alert("edit row " + this.personRepr(person))
           //was going to pass in $event, but easier and better to just pass in a person object
-          this.modalPerson = person
-          this.modalCmp = JSON.stringify(person)
+          this.modalPerson = deepclone(person)
+          this.modalOrigPerson = person
           this.modalChild()
         },
         info: function(e) {
