@@ -192,7 +192,25 @@
         },
         search: function() {
           if (! this.isSearchEmpty) {
-            window.alert("searching for: " + this.searchterm)
+            //window.alert("searching for: " + this.searchterm)
+            var a = this; //app
+            u = api + 'persons'
+            a.appstatus = "REST:" + u
+            axios.get(u, { params: { search: this.searchterm }})
+              .then(function (response) {
+                console.log(response)
+                a.persons = response.data
+                if (a.persons.length > 0) {
+                }
+                for (var p of a.persons) {
+                  p.dateofbirth = p.dateofbirth.substring(0,10)
+                  console.log(p)
+                }
+                //response.data.error  //error code here tbd
+              })
+              .catch(function (error) {
+                a.searchterm = "Invalid Data"
+              })
           }
         },
         editrow: function(person) {
