@@ -15,14 +15,14 @@
       <modal :shown="modalShown" @closed="modalShown = false">
         <p>{{ modalCounter }} seconds since counter has started.</p>
         <form >
-          <input type="text"  class="form-control c-Modal-Text" placeholder="Lastname"/>
-          <input type="text"  class="form-control c-Modal-Text" placeholder="Firstname"/>
-          <input type="text"  class="form-control c-Modal-Text" placeholder="Date of birth"/>
-          <input type="text"  class="form-control c-Modal-Text" placeholder="Zipcode"/>
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Lastname" v-model="modalPerson.lastname" />
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Firstname" v-model="modalPerson.firstname" />
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Date of birth" v-model="modalPerson.dateofbirth" />
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Zipcode" v-model="modalPerson.zipcode" />
         </form>
         <p>
-          <button id="i-Modal-Save" class="btn btn-primary pull-right" @click="modalSave">Save</button>
           <button class="btn btn-secondary pull-right" @click="modalSave">Cancel</button>
+          <button id="i-Modal-Save" class="btn btn-primary pull-right" @click="modalSave">Save</button>
         </p>
       </modal>
 
@@ -66,7 +66,7 @@
           <tr v-for="person in persons" v-bind:id="person.id" v-on:dblclick="editrow(person)">
             <td>{{ person.lastname }}</td>
             <td>{{ person.firstname }}</td>
-            <td>{{ person.dateofbirth.substring(0,10) }}</td>
+            <td>{{ person.dateofbirth }}</td>
             <td>{{ person.zipcode }}</td>
           </tr>
         <tbody>
@@ -104,6 +104,8 @@
           modalShown: false,
           modalCounter: 0,
           modalCommit: false,
+          modalPerson: {lastname:'',firstname:'',dateofbirth:'',zipcode:''},
+          modalCmp: '',
           personadebug: false,
           api: '',
           zipcode: '',
@@ -156,8 +158,10 @@
           window.alert("searching for: " + this.searchterm)
         },
         editrow: function(person) {
-          window.alert("edit row " + this.personRepr(person))
+          //window.alert("edit row " + this.personRepr(person))
           //was going to pass in $event, but easier and better to just pass in a person object
+          this.modalPerson = person
+          this.modalChild()
         },
         info: function(e) {
           //temporarily using this as manual refresh
@@ -181,6 +185,10 @@
               console.log(response)
               a.persons = response.data
               if (a.persons.length > 0) {
+              }
+              for (var p of a.persons) {
+                p.dateofbirth = p.dateofbirth.substring(0,10)
+                console.log(p)
               }
               //response.data.error  //error code here tbd
             })
