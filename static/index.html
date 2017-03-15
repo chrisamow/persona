@@ -23,7 +23,7 @@
         <p>
           <button id="i-Modal-Cancel" class="btn btn-secondary pull-right" @click="modalSave">Cancel</button>
           <button id="i-Modal-Save" class="btn btn-primary pull-right" 
-            @click="modalSave" v-show="isModalPersonChanged">Save</button>
+            @click="modalSave" v-show="isSaveAllowed">Save</button>
         </p>
       </modal>
 
@@ -122,9 +122,23 @@
         }
       },
       computed: {
+        isSaveAllowed: function() {
+          return this.isModalPersonChanged && this.isValidModalPerson
+        },
+        isValidModalPerson: function() {
+          var p = this.modalPerson
+          if((p.lastname.length<1) || (p.firstname.length<1)||(p.dateofbirth.length<10)||(p.zipcode.length<5))
+            return false;
+          if(! parseInt(p.zipcode)) //'33333-2222' would pass, todo: more validation would be useful
+            return false;
+          var ts=Date.parse(p.dateofbirth) //note years way into the future allowed (e.g +50000 years)
+          if(isNaN(ts))
+            return false;
+          return true;  //seems ok
+        },
         isModalPersonChanged: function() {
           return ! (JSON.stringify(this.modalOrigPerson) === JSON.stringify(this.modalPerson))
-        }
+        },
       },
       watch: {
         zipcode: function() {
