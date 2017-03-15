@@ -11,3 +11,31 @@
     display: none;
 }
 
+
+.c-Modal-Shade {
+  position: fixed;
+  left: 0; top: 0;
+  right: 0; bottom: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.c-Modal-Container {
+  box-sizing: border-box;
+  width: 75%;
+  max-width: 20em;
+  margin: 200px auto;
+  padding: 0 1em;
+  overflow: hidden;
+  background-color: white;
+}
+
+.c-Modal-Shade.v-transition {
+  transition: opacity 0.25s;
+}
+
+.c-Modal-Shade.v-enter, .c-Modal-Shade.v-leave {
+  opacity: 0;
+}
+
