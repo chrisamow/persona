@@ -16,10 +16,10 @@ class Person(Base):
     __tablename__ = 'person'
     namemax = 255
     id = Column(Integer, Sequence('person_id_seq'), primary_key=True)
-    lastname = Column(String(namemax))
-    firstname = Column(String(namemax))
+    lastname = Column(String(namemax), index=True)
+    firstname = Column(String(namemax), index=True)
     dateofbirth = Column(DateTime)
-    zipcode = Column(String(namemax))   #not using int, dont forget about 9 digit zips
+    zipcode = Column(String(namemax), index=True)   #not using int, dont forget about 9 digit zips
     def setDob(self, s):
         """ease formatting pain if you have a simple YYYY-MM-DD date"""
         self.dateofbirth = datetime.datetime.strptime(s, '%Y-%m-%d')
@@ -40,9 +40,6 @@ if __name__ == "__main__":
             from sqlalchemy.orm import sessionmaker
             Session = sessionmaker(bind=engine)
             s = Session()
-            #p1 = Person(id=1000, lastname='test', firstname='justa', zipcode='90210')
-            #s.add(p1)
-            #s.commit()
             with open(argv[2]) as csvfile:
                 rdr = csv.reader(csvfile, delimiter=',')
                 for row in rdr:
