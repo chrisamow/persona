@@ -47,10 +47,10 @@
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         <a class="btn btn-secondary">
           <i class="fa fa-window-close" aria-hidden="true"></i></a>
+        <a class="btn btn-secondary" v-on:click="refresh">
+          <i class="fa fa-refresh" aria-hidden="true"></i></a>
         <a class="btn btn-secondary">
           <i class="fa fa-cog" aria-hidden="true"></i></a>
-        <a class="btn btn-secondary" v-on:click="info">
-          <i class="fa fa-info" aria-hidden="true"></i></a>
       </form>
 
       <div class="col-xs-12" style="height:20px;"></div>
@@ -226,8 +226,9 @@
           var id = parseInt(e.currentTarget.id)
           this.selectedStates[id] = true;
         },
-        info: function(e) {
-          //temporarily using this as manual refresh
+        refresh: function(e) {
+          //manual refresh
+          this.searchterm = ''
           this.fetchpersons()
         },
         handleScroll: function () {
