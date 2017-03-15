@@ -74,7 +74,7 @@ class PersonListResource(Resource):
     @use_kwargs(args)
     def get(self, startid, letter, search):
         #import pudb; pu.db  #pyflakes gets confused (webargs related?) throws an error, ignore
-        persons = session.query(Person).all()
+        persons = session.query(Person).order_by('lastname', 'firstname').all()   #all needs to be last
         return persons
 
     @marshal_with(person_fields)
