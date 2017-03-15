@@ -173,13 +173,25 @@
           this.modalCommit = true
           this.modalShown = false
 
-          //TODO: make REST call to persist
-
           //vue model must get the changes
           this.modalOrigPerson.lastname = this.modalPerson.lastname
           this.modalOrigPerson.firstname = this.modalPerson.firstname
           this.modalOrigPerson.dateofbirth = this.modalPerson.dateofbirth
           this.modalOrigPerson.zipcode = this.modalPerson.zipcode
+
+          //make REST call to persist
+          var a = this; //app
+          dt = new Date(this.modalPerson.dateofbirth)
+          this.modalPerson.dateofbirth = dt.toISOString()
+          var u = api + 'person/' + this.modalPerson.id.toString()
+          a.appstatus = "REST:" + u
+          axios.put(u, this.modalPerson).then(function (response) {
+            console.log(response)
+          })
+          .catch(function (error) {
+            a.searchterm = "Invalid Data"
+          })
+
         },
         modalChild: function() {
           this.modalCounter = 0;
@@ -242,23 +254,22 @@
         },
         fetchpersons: function() {
           var a = this; //app
-          u = api + 'persons'
+          var u = api + 'persons'
           a.appstatus = "REST:" + u
-          axios.get(u)
-            .then(function (response) {
-              console.log(response)
-              a.persons = response.data
-              if (a.persons.length > 0) {
-              }
-              for (var p of a.persons) {
-                p.dateofbirth = p.dateofbirth.substring(0,10)
-                console.log(p)
-              }
-              //response.data.error  //error code here tbd
-            })
-            .catch(function (error) {
-              a.searchterm = "Invalid Data"
-            })
+          axios.get(u).then(function (response) {
+            console.log(response)
+            a.persons = response.data
+            if (a.persons.length > 0) {
+            }
+            for (var p of a.persons) {
+              p.dateofbirth = p.dateofbirth.substring(0,10)
+              console.log(p)
+            }
+            //response.data.error  //error code here tbd
+          })
+          .catch(function (error) {
+            a.searchterm = "Invalid Data"
+          })
         }, 
       }
     })
