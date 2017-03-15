@@ -12,7 +12,7 @@
 <body>
   <div id="app" class="container">
     <div id="modalmount">
-      <modal :shown="modalShown" @closed="modalShown = false">
+      <modal v-cloak :shown="modalShown" @closed="modalShown = false">
         <p>{{ modalCounter }} seconds since counter has started.</p>
         <form >
           <input type="text"  class="form-control c-Modal-Text" placeholder="Lastname" v-model="modalPerson.lastname" />
