@@ -12,6 +12,11 @@
 }
 
 
+thead th {
+    background-color: #006DCC;
+    color: white;
+}
+
 .c-Modal-Shade {
   position: fixed;
   left: 0; top: 0;
