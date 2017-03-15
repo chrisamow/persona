@@ -21,8 +21,9 @@
           <input type="text"  class="form-control c-Modal-Text" placeholder="Zipcode" v-model="modalPerson.zipcode" />
         </form>
         <p>
-          <button class="btn btn-secondary pull-right" @click="modalSave">Cancel</button>
-          <button id="i-Modal-Save" class="btn btn-primary pull-right" @click="modalSave">Save</button>
+          <button id="i-Modal-Cancel" class="btn btn-secondary pull-right" @click="modalSave">Cancel</button>
+          <button id="i-Modal-Save" class="btn btn-primary pull-right" 
+            @click="modalSave" v-show="isModalPersonChanged">Save</button>
         </p>
       </modal>
 
@@ -117,6 +118,11 @@
           persons: []
         }
       },
+      computed: {
+        isModalPersonChanged: function() {
+          return ! (this.modalCmp === JSON.stringify(this.modalPerson))
+        }
+      },
       watch: {
         zipcode: function() {
           this.city = ''
@@ -161,6 +167,7 @@
           //window.alert("edit row " + this.personRepr(person))
           //was going to pass in $event, but easier and better to just pass in a person object
           this.modalPerson = person
+          this.modalCmp = JSON.stringify(person)
           this.modalChild()
         },
         info: function(e) {
