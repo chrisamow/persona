@@ -23,12 +23,13 @@
 
 .c-Modal-Container {
   box-sizing: border-box;
+  border-radius: 5px;
   width: 75%;
   max-width: 20em;
   margin: 200px auto;
   padding: 0 1em;
   overflow: hidden;
-  background-color: white;
+  background-color: #EEE;
 }
 
 .c-Modal-Shade.v-transition {
@@ -39,3 +40,11 @@
   opacity: 0;
 }
 
+.c-Modal-Text {
+  margin-bottom: 10px;
+}
+
+#i-Modal-Save {
+  margin-bottom: 10px;
+  margin-left: 5px;
+}

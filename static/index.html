@@ -13,8 +13,17 @@
   <div id="app" class="container">
     <div id="modalmount">
       <modal :shown="modalShown" @closed="modalShown = false">
-        <p>Hello! {{ modalCounter }} seconds since the conter has started.</p>
-        <p><button @click="modalShown = false">Close the modal</button></p>
+        <p>{{ modalCounter }} seconds since counter has started.</p>
+        <form >
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Lastname"/>
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Firstname"/>
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Date of birth"/>
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Zipcode"/>
+        </form>
+        <p>
+          <button id="i-Modal-Save" class="btn btn-primary pull-right" @click="modalSave">Save</button>
+          <button class="btn btn-secondary pull-right" @click="modalSave">Cancel</button>
+        </p>
       </modal>
 
       <div class="col-xs-12" style="height:20px;"></div>
@@ -94,6 +103,7 @@
         return {
           modalShown: false,
           modalCounter: 0,
+          modalCommit: false,
           personadebug: false,
           api: '',
           zipcode: '',
@@ -128,12 +138,14 @@
         //window.removeEventListener('scroll', this.handleScroll)
       },
       methods: {
-        modalClosed: function() {
-          modalShown = false
+        modalSave: function() { //only Save button gets here, e.g. click on shade will not
+          this.modalCommit = true
+          this.modalShown = false
           console.log('modal closed')
         },
         modalChild: function() {
           this.modalCounter = 0;
+          this.modalCommit = false
           //document.getElementById('modalmount').appendChild(document.getElementById('modalid'))
           this.modalShown = true
         },
