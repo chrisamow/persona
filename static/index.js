@@ -25,6 +25,7 @@ var app = new Vue({
   components: { modal: modal },
   data: function() {
     return {
+      modalTitle: '',
       modalShown: false,
       modalCounter: 0,
       modalCommit: false,
@@ -149,6 +150,7 @@ var app = new Vue({
       //was going to pass in $event, but easier and better to just pass in a person object
       this.modalPerson = deepclone(person)
       this.modalOrigPerson = person
+      this.modalTitle = 'Editing person #' + person.id
       this.modalChild()
     },
     selectrow: function(e) {
