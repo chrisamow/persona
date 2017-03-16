@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Persona</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="static/styles.css?v=1.0">
+</head>
+
+<body>
+  <div id="app" class="container">
+    <div id="modalmount">
+      <modal v-cloak :shown="modalShown" @closed="modalShown = false">
+        <div class="col-xs-12" style="height:20px;"></div>
+        <p v-if="personadebug">{{ modalCounter }} seconds since counter has started.</p>
+        <div class="modal-title">{{ modalTitle }}</div>
+        <div class="col-xs-12" style="height:20px;"></div>
+        <form >
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Lastname" v-model="modalPerson.lastname" />
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Firstname" v-model="modalPerson.firstname" />
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Date of birth" v-model="modalPerson.dateofbirth" />
+          <input type="text"  class="form-control c-Modal-Text" placeholder="Zipcode" v-model="modalPerson.zipcode" />
+        </form>
+        <p>
+          <button id="i-Modal-Cancel" class="btn btn-secondary pull-right" @click="modalSave">Cancel</button>
+          <button id="i-Modal-Save" class="btn btn-primary pull-right" 
+            @click="modalSave" v-show="isSaveAllowed">Save</button>
+        </p>
+      </modal>
+
+      <div class="col-xs-12" style="height:20px;"></div>
+      <span v-cloak v-if="personadebug" class="app-status">{{appstatus}}</span>
+      <form class="form-inline">
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" v-model="selected" v-on:click="jumpto">
+          <option selected>Jump...</option>
+          <option v-for="letter in letters" v-bind:value="letter">
+            {{ letter }}
+          </option>
+        </select>
+        <div id="searchgroup" class="input-group mb-2 mr-sm-2 mb-sm-0">
+          <input type="text"  class="form-control" placeholder="Search for last name..." v-model="searchterm" @keyup.enter="search"/>
+          <button type="button" class="btn btn-secondary" :disabled="isSearchEmpty">
+            <i class="fa fa-search" aria-hidden="true" v-on:click="search"></i></button>
+        </div>
+        <button type="button" id="add" class="btn btn-secondary cluster">
+          <i class="fa fa-plus-square" aria-hidden="true" @click="newrow"></i></button>
+        <button type="button" class="btn btn-secondary cluster">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary cluster" @click="deleterow">
+          <i class="fa fa-window-close" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary cluster" v-on:click="refresh">
+          <i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <button type="button" id="settings" class="btn btn-secondary pull-right">
+          <i class="fa fa-cog" aria-hidden="true"></i></button>
+      </form>
+
+      <div class="col-xs-12" style="height:20px;"></div>
+      <table v-cloak id="mainlist" class="table table-striped table-hover">
+        <thead>
+          <tr v-if="persons.length>0">
+            <th>Last name</th>
+            <th>First name</th>
+            <th>Date of birth</th>
+            <th>Zipcode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="mainrow" v-for="person in persons" v-bind:id="person.id" 
+                @dblclick="editrow(person)" @click="selectrow($event)" v-bind:class="{'bg-info':selectedStates[person.id]}">
+            <td>{{ person.lastname }}</td>
+            <td>{{ person.firstname }}</td>
+            <td>{{ person.dateofbirth }}</td>
+            <td>{{ person.zipcode }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@2.2.3"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+  <script src="static/index.js"></script>
+</body>
+</html>
+

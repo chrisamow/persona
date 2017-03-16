@@ -1,0 +1,70 @@
+.form-inline .cluster {
+    margin-left: 5px;
+}
+
+.form-inline #settings {
+    margin-left: 25px;
+}
+
+#searchgroup {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+[v-cloak] {
+    display: none;
+}
+
+
+thead th {
+    background-color: #006DCC;
+    color: white;
+}
+
+#mainlist .mainrow {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+.c-Modal-Shade {
+  position: fixed;
+  left: 0; top: 0;
+  right: 0; bottom: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.c-Modal-Container {
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 75%;
+  max-width: 20em;
+  margin: 200px auto;
+  padding: 0 1em;
+  overflow: hidden;
+  background-color: #EEE;
+}
+
+.c-Modal-Shade.v-transition {
+  transition: opacity 0.25s;
+}
+
+.c-Modal-Shade.v-enter, .c-Modal-Shade.v-leave {
+  opacity: 0;
+}
+
+.c-Modal-Text {
+  margin-bottom: 10px;
+}
+
+#i-Modal-Save {
+  margin-bottom: 10px;
+}
+
+#i-Modal-Cancel {
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
