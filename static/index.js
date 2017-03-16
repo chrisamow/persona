@@ -20,7 +20,7 @@ var modal = {
   },
 };
 
-var app = new Vue({
+var app = new Vue({ // MAIN APP -----------------------------
   el: '#app',
   components: { modal: modal },
   data: function() {
@@ -192,6 +192,6 @@ var app = new Vue({
         a.searchterm = "Invalid Data"
       })
     }, 
-  }
+  }//methods
 })
 

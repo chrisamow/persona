@@ -57,7 +57,7 @@
       </form>
 
       <div class="col-xs-12" style="height:20px;"></div>
-      <table id="mainlist" class="table table-striped table-hover">
+      <table v-cloak id="mainlist" class="table table-striped table-hover">
         <thead>
           <tr v-if="persons.length>0">
             <th>Last name</th>
@@ -68,7 +68,7 @@
         </thead>
         <tbody>
           <tr class="mainrow" v-for="person in persons" v-bind:id="person.id" 
-                              @dblclick="editrow(person)" @click="selectrow($event)" v-bind:class="{'bg-info':selectedStates[person.id]}">
+                @dblclick="editrow(person)" @click="selectrow($event)" v-bind:class="{'bg-info':selectedStates[person.id]}">
             <td>{{ person.lastname }}</td>
             <td>{{ person.firstname }}</td>
             <td>{{ person.dateofbirth }}</td>
