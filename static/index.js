@@ -176,6 +176,26 @@ var app = new Vue({ // MAIN APP -----------------------------
       var id = parseInt(e.currentTarget.id)
       this.selectedStates[id] = ! (this.selectedStates[id]);
     },
+    deleterow: function() {
+      var app = this;
+      for(s in this.selectedStates) {
+        if(this.selectedStates[s]) {
+          var u = api + 'person/' + s
+          app.appstatus = "REST:" + u
+          axios.delete(u).then(function (response) {
+            //console.log(response)
+            var personid = response.data
+            var prevLen = app.persons.length
+            app.persons = app.persons.filter(function(p){return !(p.id == personid) })
+            if((app.persons.length+1) != prevLen)
+              window.alert("delete problem " + personid)
+          })
+          .catch(function (error) {
+            a.searchterm = "Invalid Data"
+          })
+        }//if
+      }
+    },
     refresh: function(e) {
       //manual refresh
       this.searchterm = ''

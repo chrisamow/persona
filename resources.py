@@ -46,7 +46,7 @@ class PersonResource(Resource):
             abort(404, message="Person {} doesn't exist".format(person_id))
         session.delete(person)
         session.commit()
-        return {}, 204
+        return person_id, 200   #note, a 204 does not allow return info
 
 
     @marshal_with(person_fields)
