@@ -86,7 +86,8 @@ class PersonListResource(Resource):
         parsed_args = person_parser.parse_args()
         person = Person(    lastname=parsed_args['lastname'],
                             firstname=parsed_args['firstname'],
-                            dateofbirth=parsed_args['dateofbirth'])
+                            dateofbirth=parsed_args['dateofbirth'],
+                            zipcode=parsed_args['zipcode'])
         session.add(person)
         session.commit()
         return person, 201

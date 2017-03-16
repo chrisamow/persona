@@ -28,7 +28,6 @@ var app = new Vue({ // MAIN APP -----------------------------
       modalTitle: '',
       modalShown: false,
       modalCounter: 0,
-      modalCommit: false,
       modalPerson: {lastname:'',firstname:'',dateofbirth:'',zipcode:''},
       modalOrigPerson: {lastname:'',firstname:'',dateofbirth:'',zipcode:''},
       personadebug: false,
@@ -90,30 +89,44 @@ var app = new Vue({ // MAIN APP -----------------------------
   },
   methods: {
     modalSave: function() { //only Save button gets here, e.g. click on shade will not
-      this.modalCommit = true
       this.modalShown = false
       var app = this;
-      dt = new Date(this.modalPerson.dateofbirth)
-      this.modalPerson.dateofbirth = dt.toISOString()
-      var u = api + 'person/' + this.modalPerson.id.toString()
-      app.appstatus = "REST:" + u
-      axios.put(u, this.modalPerson).then(function (response) {
-        //console.log(response)
-        //vue model must get the changes now that we confirmed
-        var p = response.data
-        app.modalOrigPerson.lastname = p.lastname
-        app.modalOrigPerson.firstname = p.firstname
-        app.modalOrigPerson.dateofbirth = p.dateofbirth.substring(0,10)
-        app.modalOrigPerson.zipcode = p.zipcode
-      })
-      .catch(function (error) {
-        a.searchterm = "Invalid Data"
-      })
-
+      if(this.modalPerson.id) { //edit existing person
+        dt = new Date(this.modalPerson.dateofbirth)
+        this.modalPerson.dateofbirth = dt.toISOString()
+        var u = api + 'person/' + this.modalPerson.id.toString()
+        app.appstatus = "REST:" + u
+        axios.put(u, this.modalPerson).then(function (response) {
+          //console.log(response)
+          //vue model must get the changes now that we confirmed
+          var p = response.data
+          app.modalOrigPerson.lastname = p.lastname
+          app.modalOrigPerson.firstname = p.firstname
+          app.modalOrigPerson.dateofbirth = p.dateofbirth.substring(0,10)
+          app.modalOrigPerson.zipcode = p.zipcode
+        })
+        .catch(function (error) {
+          a.searchterm = "Invalid Data"
+        })
+      } else { //new person
+        dt = new Date(this.modalPerson.dateofbirth)
+        this.modalPerson.dateofbirth = dt.toISOString()
+        var u = api + 'persons'
+        app.appstatus = "REST:" + u
+        axios.post(u, this.modalPerson).then(function (response) {
+          //console.log(response)
+          //vue model must get the changes now that we confirmed
+          var p = response.data
+          p.dateofbirth = p.dateofbirth.substring(0,10)
+          app.persons.unshift(p)
+        })
+        .catch(function (error) {
+          a.searchterm = "Invalid Data"
+        })
+      }
     },
     modalChild: function() {
       this.modalCounter = 0;
-      this.modalCommit = false
       //document.getElementById('modalmount').appendChild(document.getElementById('modalid'))
       this.modalShown = true
     },
