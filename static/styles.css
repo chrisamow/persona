@@ -1,12 +1,15 @@
-.form-inline button {                                                                
-    margin-left: 5px;                                                           
-}                                                                               
-.form-inline button#add {                                                            
-    margin-left: 20px;                                                          
-}                                                                               
-#searchgroup {                                                                  
-    margin-left: 20px;                                                          
-}                                                                               
+.form-inline .cluster {
+    margin-left: 5px;
+}
+
+.form-inline #settings {
+    margin-left: 25px;
+}
+
+#searchgroup {
+    margin-left: 20px;
+    margin-right: 20px;
+}
 [v-cloak] {
     display: none;
 }

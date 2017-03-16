@@ -13,7 +13,7 @@
   <div id="app" class="container">
     <div id="modalmount">
       <modal v-cloak :shown="modalShown" @closed="modalShown = false">
-        <p>{{ modalCounter }} seconds since counter has started.</p>
+        <p v-if="personadebug">{{ modalCounter }} seconds since counter has started.</p>
         <form >
           <input type="text"  class="form-control c-Modal-Text" placeholder="Lastname" v-model="modalPerson.lastname" />
           <input type="text"  class="form-control c-Modal-Text" placeholder="Firstname" v-model="modalPerson.firstname" />
@@ -41,15 +41,15 @@
           <button type="button" class="btn btn-secondary" :disabled="isSearchEmpty">
             <i class="fa fa-search" aria-hidden="true" v-on:click="search"></i></button>
         </div>
-        <button type="button" id="add" class="btn btn-secondary">
+        <button type="button" id="add" class="btn btn-secondary cluster">
           <i class="fa fa-plus-square" aria-hidden="true" @click="modalChild"></i></button>
-        <button type="button" class="btn btn-secondary">
+        <button type="button" class="btn btn-secondary cluster">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-secondary">
+        <button type="button" class="btn btn-secondary cluster">
           <i class="fa fa-window-close" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-secondary" v-on:click="refresh">
+        <button type="button" class="btn btn-secondary cluster" v-on:click="refresh">
           <i class="fa fa-refresh" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-secondary">
+        <button type="button" id="settings" class="btn btn-secondary pull-right">
           <i class="fa fa-cog" aria-hidden="true"></i></button>
       </form>
 
