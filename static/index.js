@@ -198,6 +198,7 @@ var app = new Vue({ // MAIN APP -----------------------------
     },
     refresh: function(e) {
       //manual refresh
+      this.selectedStates = []
       this.searchterm = ''
       this.fetchpersons()
     },
