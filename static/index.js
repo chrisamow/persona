@@ -92,21 +92,19 @@ var app = new Vue({ // MAIN APP -----------------------------
     modalSave: function() { //only Save button gets here, e.g. click on shade will not
       this.modalCommit = true
       this.modalShown = false
-
-      //vue model must get the changes
-      this.modalOrigPerson.lastname = this.modalPerson.lastname
-      this.modalOrigPerson.firstname = this.modalPerson.firstname
-      this.modalOrigPerson.dateofbirth = this.modalPerson.dateofbirth
-      this.modalOrigPerson.zipcode = this.modalPerson.zipcode
-
-      //make REST call to persist
-      var a = this; //app
+      var app = this;
       dt = new Date(this.modalPerson.dateofbirth)
       this.modalPerson.dateofbirth = dt.toISOString()
       var u = api + 'person/' + this.modalPerson.id.toString()
-      a.appstatus = "REST:" + u
+      app.appstatus = "REST:" + u
       axios.put(u, this.modalPerson).then(function (response) {
-        console.log(response)
+        //console.log(response)
+        //vue model must get the changes now that we confirmed
+        var p = response.data
+        app.modalOrigPerson.lastname = p.lastname
+        app.modalOrigPerson.firstname = p.firstname
+        app.modalOrigPerson.dateofbirth = p.dateofbirth.substring(0,10)
+        app.modalOrigPerson.zipcode = p.zipcode
       })
       .catch(function (error) {
         a.searchterm = "Invalid Data"
@@ -148,9 +146,15 @@ var app = new Vue({ // MAIN APP -----------------------------
     editrow: function(person) {
       //window.alert("edit row " + this.personRepr(person))
       //was going to pass in $event, but easier and better to just pass in a person object
-      this.modalPerson = deepclone(person)
+      this.modalPerson = deepclone(person) //dont mod the original before its time
       this.modalOrigPerson = person
       this.modalTitle = 'Editing person #' + person.id
+      this.modalChild()
+    },
+    newrow: function() {
+      this.modalOrigPerson = { id:'', lastname:'', firstname:'', dateofbirth:'', zipcode:'' }
+      this.modalPerson = deepclone(this.modalOrigPerson) //dont mod the original before its time
+      this.modalTitle = 'New person'
       this.modalChild()
     },
     selectrow: function(e) {
