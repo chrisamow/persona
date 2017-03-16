@@ -1,7 +1,7 @@
-.form-inline a {                                                                
+.form-inline button {                                                                
     margin-left: 5px;                                                           
 }                                                                               
-.form-inline a#add {                                                            
+.form-inline button#add {                                                            
     margin-left: 20px;                                                          
 }                                                                               
 #searchgroup {                                                                  
@@ -18,6 +18,10 @@ thead th {
 }
 
 #mainlist .mainrow {
+  cursor: pointer;
+}
+
+button {
   cursor: pointer;
 }
 

@@ -41,16 +41,16 @@
           <button type="button" class="btn btn-secondary" :disabled="isSearchEmpty">
             <i class="fa fa-search" aria-hidden="true" v-on:click="search"></i></button>
         </div>
-        <a id="add" class="btn btn-secondary">
-          <i class="fa fa-plus-square" aria-hidden="true" @click="modalChild"></i></a>
-        <a class="btn btn-secondary">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-        <a class="btn btn-secondary">
-          <i class="fa fa-window-close" aria-hidden="true"></i></a>
-        <a class="btn btn-secondary" v-on:click="refresh">
-          <i class="fa fa-refresh" aria-hidden="true"></i></a>
-        <a class="btn btn-secondary">
-          <i class="fa fa-cog" aria-hidden="true"></i></a>
+        <button type="button" id="add" class="btn btn-secondary">
+          <i class="fa fa-plus-square" aria-hidden="true" @click="modalChild"></i></button>
+        <button type="button" class="btn btn-secondary">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary">
+          <i class="fa fa-window-close" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary" v-on:click="refresh">
+          <i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary">
+          <i class="fa fa-cog" aria-hidden="true"></i></button>
       </form>
 
       <div class="col-xs-12" style="height:20px;"></div>
@@ -65,7 +65,7 @@
         </thead>
         <tbody>
           <tr class="mainrow" v-for="person in persons" v-bind:id="person.id" 
-                              @dblclick="editrow(person)" @click="selectrow($event)">
+                              @dblclick="editrow(person)" @click="selectrow($event)" v-bind:class="{'bg-info':selectedStates[person.id]}">
             <td>{{ person.lastname }}</td>
             <td>{{ person.firstname }}</td>
             <td>{{ person.dateofbirth }}</td>
@@ -236,7 +236,7 @@
           //window.alert("selected: " + e.currentTarget.id)
           this.selected =  e.currentTarget.id
           var id = parseInt(e.currentTarget.id)
-          this.selectedStates[id] = true;
+          this.selectedStates[id] = ! (this.selectedStates[id]);
         },
         refresh: function(e) {
           //manual refresh
