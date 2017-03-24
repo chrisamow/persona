@@ -47,7 +47,7 @@
         <button type="button" id="add" class="btn btn-secondary cluster">
           <i class="fa fa-plus-square" aria-hidden="true" @click="newrow"></i></button>
         <button type="button" class="btn btn-secondary cluster">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+          <i class="fa fa-pencil-square-o" aria-hidden="true" @click="editrow(null)"></i></button>
         <button type="button" class="btn btn-secondary cluster" @click="deleterow">
           <i class="fa fa-window-close" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-secondary cluster" v-on:click="refresh">

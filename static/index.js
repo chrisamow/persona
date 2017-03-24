@@ -90,6 +90,9 @@ var app = new Vue({ // MAIN APP -----------------------------
   methods: {
     modalSave: function() { //only Save button gets here, e.g. click on shade will not
       this.modalShown = false
+      if(! this.isSaveAllowed) {
+        return
+      }
       var app = this;
       if(this.modalPerson.id) { //edit existing person
         dt = new Date(this.modalPerson.dateofbirth)
@@ -157,6 +160,19 @@ var app = new Vue({ // MAIN APP -----------------------------
       }
     },
     editrow: function(person) {
+      if(! person) { //button clicked, need to discover context {
+        var selected = [ ]
+        this.selectedStates.forEach(function(x,idx) {if(x) {selected.push(idx)}})
+        if (1 == selected.length) {
+          var id = selected[0]
+          person = this.persons.find(function(x) {return x.id==id})
+        }
+        else {
+          //TODO: alert warnings for either none selected or multiple selected
+          return
+        }
+      }
+
       //window.alert("edit row " + this.personRepr(person))
       //was going to pass in $event, but easier and better to just pass in a person object
       this.modalPerson = deepclone(person) //dont mod the original before its time
