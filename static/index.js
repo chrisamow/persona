@@ -121,7 +121,7 @@ var app = new Vue({ // MAIN APP -----------------------------
           app.persons.unshift(p)
         })
         .catch(function (error) {
-          a.searchterm = "Invalid Data"
+          app.searchterm = "Invalid Data"
         })
       }
     },
