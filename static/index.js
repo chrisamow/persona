@@ -168,7 +168,12 @@ var app = new Vue({ // MAIN APP -----------------------------
           person = this.persons.find(function(x) {return x.id==id})
         }
         else {
-          //TODO: alert warnings for either none selected or multiple selected
+          if(selected.length < 1) {
+            alert("Select a row for editing.")
+          }
+          else {
+            alert("Select only one row for editing.")
+          }
           return
         }
       }
@@ -193,6 +198,12 @@ var app = new Vue({ // MAIN APP -----------------------------
       this.selectedStates[id] = ! (this.selectedStates[id]);
     },
     deleterow: function() {
+      var selected = [ ]
+      this.selectedStates.forEach(function(x,idx) {if(x) {selected.push(idx)}})
+      if (selected.length < 1) {
+        alert("Select one or more rows for deleting.")
+        return
+      }
       var app = this;
       for(s in this.selectedStates) {
         if(this.selectedStates[s]) {
