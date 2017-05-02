@@ -16,7 +16,6 @@ Persona is a simple demo of CRUD functionality using:
 	./models.py sampledata gendata/clean500.csv
 
 
-It is running [live](http://amow.net:5000)
 
 
 It is designed to eventually use lazy-loading/pagination as the next step for large datasets.
